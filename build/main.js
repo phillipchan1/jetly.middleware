@@ -268,7 +268,7 @@ exports.configureTodos = function (app) {
         find: function (body) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    return [2 /*return*/, 'get todos'];
+                    return [2 /*return*/, 'get todos?'];
                 });
             });
         }
