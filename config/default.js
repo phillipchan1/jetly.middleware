@@ -5,9 +5,12 @@ module.exports = {
     url: 'http://localhost:3030',
     mysql: {
         client: 'mssql',
-        host: 'localhost',
-        user: 'sa',
-        password: 'EeXu4DacEHqajeBskQyoNWKY',
-        database: 'jetly',
+        connection: {
+            host: 'localhost',
+            user: 'sa',
+            port: 1433,
+            password: 'EeXu4DacEHqajeBskQyoNWKY',
+            database: 'jetly',
+        },
     },
 }

@@ -160,15 +160,9 @@ exports.configureDBConnections = function () {
 };
 var configureSQL = function (app) {
     var sqlConfig = app.get('mysql');
+    console.log("sqlConfig", sqlConfig);
     var db = knex_1["default"](sqlConfig);
     app.set('mysql', db);
-    db.select()
-        .from('knex_migrations')
-        .then(function () {
-        console.info('Successfully connected to SQL DB!');
-    })["catch"](function (err) {
-        console.error('Error connecting to SQL DB', err);
-    });
 };
 
 
@@ -281,7 +275,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var uuid_1 = __webpack_require__(/*! uuid */ "uuid");
 exports.configureTodos = function (app) {
+    var db = app.get('mysql');
+    db('todos')
+        .insert({
+        title: 'another item',
+        id: uuid_1.v4()
+    })
+        .then(function (result) { return console.log('success'); })["catch"](function (e) { return console.error("Error: " + e); });
     app.use('/todos', {
         find: function (body) {
             return __awaiter(this, void 0, void 0, function () {
@@ -393,6 +395,17 @@ module.exports = require("knex");
 /***/ (function(module, exports) {
 
 module.exports = require("lodash");
+
+/***/ }),
+
+/***/ "uuid":
+/*!***********************!*\
+  !*** external "uuid" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("uuid");
 
 /***/ })
 
