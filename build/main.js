@@ -148,9 +148,27 @@ exports.configureJetly = function () {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
+var knex_1 = __importDefault(__webpack_require__(/*! knex */ "knex"));
 exports.configureDBConnections = function () {
-    return function (app) { };
+    return function (app) {
+        configureSQL(app);
+    };
+};
+var configureSQL = function (app) {
+    var sqlConfig = app.get('mysql');
+    var db = knex_1["default"](sqlConfig);
+    app.set('mysql', db);
+    db.select()
+        .from('knex_migrations')
+        .then(function () {
+        console.info('Successfully connected to SQL DB!');
+    })["catch"](function (err) {
+        console.error('Error connecting to SQL DB', err);
+    });
 };
 
 
@@ -353,6 +371,17 @@ module.exports = require("cors");
 /***/ (function(module, exports) {
 
 module.exports = require("helmet");
+
+/***/ }),
+
+/***/ "knex":
+/*!***********************!*\
+  !*** external "knex" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("knex");
 
 /***/ }),
 
